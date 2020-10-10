@@ -1,0 +1,30 @@
+﻿@using DomainModels.Models
+@model User
+
+@{ ViewData["Title"] = "User"; }
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="D:\New folder (2)\codetest-master\Frontend\Scripts\jquery-3.3.1.js"></script>
+    <form method="delete" class="mt-3">
+
+        <div class="text-center">
+            <h1 class="display-4"> Are You Sure you Want to Delete @Model.Name</h1>
+            <div>
+                <input style="visibility:hidden" id="deletedid" value="@Model.Id" />
+
+
+                <button type="submit" value="submit" id="btnDelete" class="btn btn-primary"
+                        onclick="deleteusr($('#deletedid').val())">
+                    Delete
+                </button>
+
+
+                <button type="submit" value="submit" id="btnCancel" class="btn btn-primary"
+                        onclick="Cancle()">
+                    Cancel
+                </button>
+
+
+            </div>
+        </div>
+
+        </form>

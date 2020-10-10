@@ -1,0 +1,116 @@
+﻿@using DomainModels.Models.ViewModels
+@model UsersViewModel
+@{ ViewData["Title"] = "Home Page"; }
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<a class="btn btn-success new" data-userid="">Add New User </a>
+<div class="text-center">
+    <h1 class="display-4">Users</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Username</th>
+                <th>E-mail</th>
+                <th>Phone</th>
+                <th>Address</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.Users)
+            {@*<tr class="user" data-userid="@user.Id">*@
+            <tr>
+                <td>@user.Name</td>
+                <td>@user.UserName</td>
+                <td>@user.Email</td>
+                <td>@user.PhoneNumber</td>
+                <td>@user.Address</td>
+                <td>
+                    <a class="btn btn-primary user" data-userid="@user.Id">Edit</a>
+                    <a class="btn btn-danger delete" data-userid="@user.Id">Delete</a>
+                </td>
+            </tr>}
+        </tbody>
+    </table>
+    <div id="userModal" style="visibility:hidden">
+    </div>
+    <div id="DeleteUserModel" style="visibility:hidden">
+    </div>
+
+    <div id="NewUserModel" style="visibility:hidden">
+
+    </div>
+
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+    function EditUser() {
+     
+        var id = $('#txtid').val();
+        var data = {
+
+            Name: $('#name').val(),
+            Email: $('#email').val(),
+            UserName: $('#username').val(),
+            PhoneNumber: $('#phone').val(),
+            Address: $('#address').val()
+        };
+
+        $.ajax({
+            type: 'patch',
+            url: 'api/User/Change/' + id,
+            contentType: 'application/json;',
+            data: JSON.stringify(data),
+            dataType: 'json',
+            success: function (data) {
+                window.location.reload();
+            }
+        })
+    }
+
+    function CreateNewUser() {
+    
+        var data2 = {
+            Name: name,
+            Email: email,
+            UserName: username,
+            PhoneNumber: phone,
+            Address: address
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: 'api/User/Add',
+            contentType: 'application/json;',
+            data: JSON.stringify(data2),
+            dataType: 'json',
+            success: function (data) {
+                window.location.reload();
+            }
+
+        })
+    }
+
+
+    function deleteusr(deletedID) {
+       // let id = document.getElementById("deletedid").value;
+        $.ajax({
+            url: 'api/User/Delete/' + deletedID,
+            type: 'DELETE',
+
+            success: function (result) {
+                window.location.reload();
+            }
+        });
+    }
+    function Cancle() {
+        window.location.reload();
+    }
+
+    });
+</script>

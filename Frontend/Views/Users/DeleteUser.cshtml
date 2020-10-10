@@ -1,0 +1,14 @@
+﻿@using DomainModels.Models
+@model User
+
+@{
+    ViewData["Title"] = "User";
+}
+
+<div class="text-center">
+    <h1 class="display-4"> Are You Sure you Want to Delete @Model.Name</h1>
+      <div>
+          <a class="btn btn-danger">Delete</a>
+          <a class="btn btn-info"> Cancle</a>
+      </div>
+</div>
